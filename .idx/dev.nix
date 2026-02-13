@@ -1,54 +1,22 @@
-# To learn more about how to use Nix to configure your environment
-# see: https://developers.google.com/idx/guides/customize-idx-env
+# .idx/dev.nix
 { pkgs, ... }: {
-  # Which nixpkgs channel to use.
-  channel = "stable-24.05"; # or "unstable"
-  # Use https://search.nixos.org/packages to find packages
+  # 安定版のチャンネルを利用
+  channel = "stable-24.05"; # または最新の安定版
+
+  # Linux環境にインストールするパッケージ
   packages = [
-    # pkgs.go
-    # pkgs.python311
-    # pkgs.python311Packages.pip
-    # pkgs.nodejs_20
-    # pkgs.nodePackages.nodemon
+    pkgs.jdk17        # Java 17 (21が良い場合は pkgs.jdk21)
+    pkgs.maven       # ビルドツール
   ];
-  # Sets environment variables in the workspace
-  env = {};
+
+  # VS Code (IDX) の設定
   idx = {
-    # Search for the extensions you want on https://open-vsx.org/ and use "publisher.id"
+    # 自動インストールする拡張機能
     extensions = [
-      # "vscodevim.vim"
-      "google.gemini-cli-vscode-ide-companion"
+      "vscjava.vscode-java-pack"  # Java開発必須セット
     ];
-    # Enable previews
-    previews = {
-      enable = true;
-      previews = {
-        # web = {
-        #   # Example: run "npm run dev" with PORT set to IDX's defined port for previews,
-        #   # and show it in IDX's web preview panel
-        #   command = ["npm" "run" "dev"];
-        #   manager = "web";
-        #   env = {
-        #     # Environment variables to set for your server
-        #     PORT = "$PORT";
-        #   };
-        # };
-      };
-    };
-    # Workspace lifecycle hooks
-    workspace = {
-      # Runs when a workspace is first created
-      onCreate = {
-        # Example: install JS dependencies from NPM
-        # npm-install = "npm install";
-        # Open editors for the following files by default, if they exist:
-        default.openFiles = [ ".idx/dev.nix" "README.md" ];
-      };
-      # Runs when the workspace is (re)started
-      onStart = {
-        # Example: start a background task to watch and re-build backend code
-        # watch-backend = "npm run watch-backend";
-      };
-    };
+
+    # プレビュー設定（コンソールアプリなら不要だが、Webアプリならここで設定）
+    previews = {};
   };
 }
