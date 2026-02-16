@@ -5,7 +5,7 @@
 
   # Linux環境にインストールするパッケージ
   packages = [
-    pkgs.jdk17        # Java 17 (21が良い場合は pkgs.jdk21)
+    pkgs.jdk11       # Java 11
     pkgs.maven       # ビルドツール
   ];
 
